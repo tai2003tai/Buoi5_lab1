@@ -1,24 +1,37 @@
-import logo from './logo.svg';
 import './App.css';
+import { Container, Navbar, Row, Col } from "react-bootstrap";
+import { useState } from 'react';
+import BooksList from './components/BooksList';
+import AddBooks from './components/AddBooks';
 
-function App() {
+function App() {  
+  const [bookId, setBookId] = useState(""); // Chỉnh sửa biến thành bookId để rõ ràng hơn
+
+  const getBookIdHandler = (id) => {
+    console.log("The ID of the selected book: ", id);
+    setBookId(id);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar bg="dark" variant="dark" className="header">
+        <Container>
+          <Navbar.Brand href="#home">Library - Firebase CRUD</Navbar.Brand>
+        </Container>
+      </Navbar>
+      <Container className="my-4">
+        <Row>
+          <Col md={6}>
+            <h3>Add / Update Book</h3>
+            <AddBooks id={bookId} setBookId={setBookId} />
+          </Col>
+          <Col md={6}>
+            <h3>Books List</h3>
+            <BooksList getBookId={getBookIdHandler} />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
